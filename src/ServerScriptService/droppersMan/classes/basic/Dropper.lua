@@ -1,7 +1,7 @@
 local addFunctionFunction = script.Parent.Parent.timerManager.addFunction
 local removeFunctionEvent = script.Parent.Parent.timerManager.removeFunction
 
-local Cube = require(script.Cube)
+local Cube = require(script.Parent.Cube)
 
 local Dropper = {}
 Dropper.__index = Dropper

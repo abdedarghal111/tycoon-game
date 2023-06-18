@@ -70,11 +70,10 @@ function Button.new(model,player,money,productObject,nextButtonObject)
 	
 	button.MODEL = model
 	button.PRODUCTOBJ = productObject
-	button.value = model.coste.Value
 	button.COLIDER = model.colider
-	button.OWNER = player
 	button.MONEY = money
 	button.NEXTBUTTONOBJ = nextButtonObject
+	button.value = model.coste.Value
 	
 	button.isBought = false
 	button.touchEvent = nil

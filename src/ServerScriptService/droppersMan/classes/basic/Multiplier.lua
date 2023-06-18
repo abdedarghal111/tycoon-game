@@ -1,3 +1,5 @@
+local Interactable = require(script.Parent.Parent.primitive.Interactable)
+
 local Multiplier = {}
 Multiplier.__index = Multiplier
 
@@ -49,11 +51,10 @@ end
 
 
 function Multiplier.new(model,player)
-	local multiplier = {}
+	local multiplier = Interactable.new(player)
 	
 	multiplier.MODEL = model
 	multiplier.DECORATION = model.decoracion
-	multiplier.OWNER = model.jugador.Value
 	multiplier.COLIDER = model.colider
 	multiplier.multiplier = model.multiplicador.Value
 	multiplier.touchEvent = nil
@@ -64,5 +65,5 @@ function Multiplier.new(model,player)
 	return multiplier
 end
 
-
+setmetatable(Multiplier,Interactable)
 return Multiplier

@@ -33,6 +33,5 @@ function recursiveLoading(buttonModel)
 	end
 end
 
-
 local first = recursiveLoading(starterButton)
 first:activate()

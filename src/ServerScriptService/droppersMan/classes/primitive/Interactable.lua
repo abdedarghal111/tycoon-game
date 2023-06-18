@@ -1,5 +1,5 @@
 local Interactable = {
-	player = nil,
+	OWNER = "player",
 	id = {}
 }
 
@@ -7,10 +7,10 @@ Interactable.__index = Interactable
 
 
 
-function Interactable.new()
-	local self = {}
-	
-	
+function Interactable.new(player)
+	local self = {
+		OWNER = player
+	}
 	
 	return setmetatable(self,Interactable)
 end

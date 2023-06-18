@@ -1,0 +1,72 @@
+{
+    "className":"Model",
+    "children": [
+        {
+            "className":"Folder",
+            "Name":"decoracion"
+        },
+        {
+            "className":"NumberValue",
+            "Name":"enfriamiento"
+        },
+        {
+            "className":"ObjectValue",
+            "Name":"jugador"
+        },
+        {
+            "className":"StringValue",
+            "Name":"type"
+        },
+        {
+            "className":"NumberValue",
+            "Name":"valor"
+        },
+        {
+            "Name":"generador",
+            "className":"Part",
+            "children": [
+                {
+                    "className":"StringValue",
+                    "Name":"type"
+                },
+                {
+                    "className":"ModuleScript",
+                    "Name":"getCube",
+                    "Source":[
+                        "local getCube = {}",
+                        "",
+                        "function getCube:setObject(object)",
+                        "\tself.object = object",
+                        "end",
+                        "",
+                        "function getCube:getObject()",
+                        "\treturn self.object",
+                        "end",
+                        "",
+                        "",
+                        "return getCube"
+                    ]
+                },
+                {
+                    "className":"BillboardGui",
+                    "Name":"board",
+                    "Size":{"UDim2": [[1, 0], [1, 0]]},
+                    "children":[
+                        {
+                            "className":"TextLabel",
+                            "Name":"text",
+                            "Size":{"UDim2": [[1, 0], [1, 0]]},
+                            "TextScaled":true,
+                            "BackgroundTransparency":1,
+                            "BorderSizePixel": 0,
+                            "TextColor3": [255,255,255],
+                            "TextStrokeTransparency":0,
+                            "TextStrokeColor3": [0,0,0]
+                        }
+                    ]
+                }
+            ]
+        }
+
+    ]
+}

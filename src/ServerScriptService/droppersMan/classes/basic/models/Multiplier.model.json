@@ -1,39 +1,31 @@
 {
-    "className":"Model",
+    "className": "Model",
     "children": [
         {
-            "className": "NumberValue",
-            "Name": "enfriamiento",
-            "Properties": {
-                "Value": 1
-            }
-        },
-        {
-            "className": "StringValue",
-            "Name": "type",
-            "Properties": {
-                "Value": "Dropper"
-            }
-        },
-        {
-            "className": "NumberValue",
-            "Name": "valor",
+            "ClassName": "NumberValue",
+            "Name": "multiplicador",
             "Properties": {
                 "Value": 2
             }
         },
         {
-            "Name": "generador",
+            "ClassName": "StringValue",
+            "Name": "type",
+            "Properties": {
+                "Value": "Multiplier"
+            }
+        },
+        {
             "className": "Part",
+            "Name": "colider",
             "properties": {
                 "CanCollide": false,
                 "CanQuery": false,
-                "CanTouch":false,
+                "CanTouch":true,
                 "Transparency":1,
                 "Massless": true,
                 "Anchored": true
             }
         }
-
     ]
 }

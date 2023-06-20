@@ -1,10 +1,10 @@
 local cubeFolder = script.cubeFolder.Value
 
 
-local Cube = {}
-Cube.__index = Cube
+local Drop = {}
+Drop.__index = Drop
 
-function Cube:isMultipliedBy(multiplicator)
+function Drop:isMultipliedBy(multiplicator)
 	if table.find(self.multipliers,multiplicator) then
 		return true
 	else
@@ -12,7 +12,7 @@ function Cube:isMultipliedBy(multiplicator)
 	end
 end
 
-function Cube:multiply(multiplicator,multiply)
+function Drop:multiply(multiplicator,multiply)
 	table.insert(self.multipliers,multiplicator)
 	self.value *= multiply
 	self.BASEPART.board.text.Text = self.value
@@ -20,17 +20,17 @@ end
 
 
 
-function Cube.new(coinBasePart,dropperObj,player)
-	local cube = {}
+function Drop.new(coinBasePart,dropperObj,player)
+	local self = {}
 	
-	cube.multipliers = {}
-	cube.BASEPART = coinBasePart:Clone()
-	cube.CREATOR = dropperObj
-	cube.OWNER = player
-	cube.value = coinBasePart.Parent.valor.Value
+	self.multipliers = {}
+	self.BASEPART = coinBasePart:Clone()
+	self.CREATOR = dropperObj
+	self.OWNER = player
+	self.value = coinBasePart.Parent.valor.Value
 	
 	--partCreation
-	local part = cube.BASEPART
+	local part = self.BASEPART
 	local value = coinBasePart.Parent.valor:Clone()
 	part.CanTouch = true
 	part.CanCollide = true
@@ -38,13 +38,13 @@ function Cube.new(coinBasePart,dropperObj,player)
 	part.Transparency = 0
 	part.Anchored = false
 	part.board.text.Text = value.Value
-	value.Parent = cube.BASEPART
+	value.Parent = self.BASEPART
 	
 	part.Parent = cubeFolder
 	--partCreation
-	require(part.getCube):setObject(cube)
-	setmetatable(cube,Cube)
-	return cube
+	require(part.getCube):setObject(self)
+	setmetatable(self,Drop)
+	return self
 end
 
-return Cube
+return Drop

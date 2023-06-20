@@ -1,0 +1,16 @@
+{
+    "className": "Model",
+    "Children": [
+        {
+            "ClassName": "NumberValue",
+            "Name": "id"
+        },
+        {
+            "className": "StringValue",
+            "Name": "type",
+            "properties": {
+                "Value":"TemporalObjects"
+            }
+        }
+    ]
+}

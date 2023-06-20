@@ -1,0 +1,28 @@
+{
+    "className": "Model",
+    "Children": [
+        {
+            "ClassName": "StringValue",
+            "Name": "type",
+            "Properties": {
+                "Value": "Convenyor"
+            }
+        },
+        {
+            "ClassName": "Folder",
+            "Name": "cintas",
+            "children":[
+                {
+                    "className": "Part",
+                    "Name": "cinta transportadora",
+                    "properties": {
+                        "CanCollide": true,
+                        "Transparency":1,
+                        "Massless": true,
+                        "Anchored": true
+                    }
+                }
+            ]
+        }
+    ]
+}

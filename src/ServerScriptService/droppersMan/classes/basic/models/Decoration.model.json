@@ -1,0 +1,12 @@
+{
+    "className": "Model",
+    "Children": [
+        {
+            "ClassName": "StringValue",
+            "Name": "type",
+            "Properties": {
+                "Value": "Decoration"
+            }
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "className": "Model",
+    "children": [
+        {
+            "className": "Folder",
+            "Name": "decoracion"
+        },
+        {
+            "className": "Folder",
+            "Name": "colisiones"
+        },
+        {
+            "className": "ObjectValue",
+            "Name": "jugador"
+        },
+        {
+            "className": "StringValue",
+            "Name": "id"
+        },
+        {
+            "className": "StringValue",
+            "Name": "type",
+            "properties": {
+                "Value":"Interactable"
+            }
+        }
+    ]
+}

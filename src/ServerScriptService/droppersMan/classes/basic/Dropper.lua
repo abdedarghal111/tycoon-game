@@ -1,28 +1,16 @@
 local addFunctionFunction = script.Parent.Parent.timerManager.addFunction
 local removeFunctionEvent = script.Parent.Parent.timerManager.removeFunction
 
+
+--TODO: modificar esto también
 local Cube = require(script.Parent.Cube)
+
+local Interactable = require(script.Parent.Parent.primitive.Interactable)
+local TimedRequests = require(script.Parent.Parent.primitive.TimedRequests)
 
 local Dropper = {}
 Dropper.__index = Dropper
-
-function Dropper:hide()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 1
-		v.CanCollide = false
-		v.CanQuery = false
-		v.CanTouch = false
-	end
-end
-
-function Dropper:show()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 0
-		v.CanCollide = true
-		v.CanQuery = false
-		v.CanTouch = false
-	end
-end
+Dropper.MODEL = script.Parent.Parent.models.Dropper
 
 function Dropper:drop()
 	Cube.new(self.SPAWN,self,self.OWNER)
@@ -30,9 +18,7 @@ end
 
 function Dropper:startWorking()
 	if not self.cooldownRequest then
-		self.cooldownRequest = addFunctionFunction:Invoke(self,self.cooldown,function()
-			self:drop()
-		end)
+		self.DROPREQUEST:add()
 	end
 end
 
@@ -48,22 +34,27 @@ function Dropper:buy()
 	self:startWorking()
 end
 
+function Dropper:getCooldown()
+	return self.cooldown
+end
+
+
 
 function Dropper.new(model,player)
-	local dropper = {}
+	local self = Interactable.new(model,player)
 	
-	dropper.MODEL = model
-	dropper.DECORATION = model.decoracion
-	dropper.SPAWN = model.generador
-	dropper.OWNER = model.jugador.Value
-	dropper.value = model.valor.Value
-	dropper.cooldown = model.enfriamiento.Value
-	dropper.cooldownRequest = nil
+	self.SPAWN = model.generador
+	self.value = model:FindFirstChild("Valor") and model.valor.Value or Dropper.MODEL.valor.Value
+	self.cooldown =  model:FindFirstChild("enfriamiento") and model.enfriamiento.Value or Dropper.MODEL.enfriamiento.Value
+
+	self.DROPREQUEST = TimedRequests.new(self,self.drop,self)
 	
-	model.generador.board.text.Text = "Value: "..dropper.value
+	if model.generador:FindFirstChild("board") then
+		model.generador.board.text.Text = "Value: "..self.value
+	end
 	
-	setmetatable(dropper,Dropper)
-	return dropper
+	setmetatable(self,Dropper)
+	return self
 end
 
 

@@ -5,29 +5,29 @@ local runServ = game:GetService("RunService")
 
 local Convenyor = {}
 Convenyor.__index = Convenyor
+Convenyor.MODEL = script.Parent.models.Convenyor
 
 function Convenyor:start()
-	if self.moveEvent then
-		if not self.moveEvent.Connected then
-			--TODO: compretar esto not self.moveEvent = self
-		end
+	for _,cinta in pairs(self.CONVENYORS:GetDescendants()) do
+		cinta.AssemblyLinearVelocity = Vector3.zero
+	end
+end
+
+function Convenyor:stop()
+	for _,cinta in pairs(self.CONVENYORS:GetDescendants()) do
+		cinta.AssemblyLinearVelocity = cinta.CFrame.LookVector * self.speed
 	end
 end
 
 
-function Convenyor.new()
-	local self = {
-		moveEvent = nil
-	}
+
+function Convenyor.new(model,player)
+	local self = Interactable.new(model,player)
+
+	self.CONVENYORS = model.cintas
+	self.speed = model:FindFirstChild("velocidad") and model.velocidad.Value or Convenyor.MODEL.velocidad.Value
 
 	return setmetatable(self,Convenyor)
 end
 
 return Convenyor
-
-
---[[
-while task.wait() do
-	script.Parent.Velocity = script.Parent.CFrame.LookVector * -20
-end
-]]

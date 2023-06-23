@@ -3,24 +3,6 @@ local Interactable = require(script.Parent.Parent.primitive.Interactable)
 local Multiplier = {}
 Multiplier.__index = Multiplier
 
-function Multiplier:hide()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 1
-		v.CanCollide = false
-		v.CanQuery = false
-		v.CanTouch = false
-	end
-end
-
-function Multiplier:show()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 0
-		v.CanCollide = true
-		v.CanQuery = false
-		v.CanTouch = false
-	end
-end
-
 function Multiplier:multiply(part)
 	if not part:isMultipliedBy(self) then
 		part:multiply(self,self.multiplier)

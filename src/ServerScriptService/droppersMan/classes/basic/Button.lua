@@ -26,24 +26,6 @@ function Button:dennyEffect()
 	warn("you should comprete that")
 end
 
-function Button:show()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 0
-		v.CanCollide = true
-		v.CanQuery = false
-		v.CanTouch = true
-	end
-end
-
-function Button:hide()
-	for i,v in pairs(self.DECORATION:GetDescendants()) do
-		v.Transparency = 0
-		v.CanCollide = false
-		v.CanQuery = false
-		v.CanTouch = false
-	end
-end
-
 function Button:activate()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
@@ -66,22 +48,23 @@ function Button:deactivate()
 end
 
 function Button.new(model,player,money,productObject,nextButtonObject)
-	local button = Interactable.new(player)
+	local self = Interactable.new(model,player)
+
+	--TODO: modificar esto porque esta mal definido
 	
-	button.MODEL = model
-	button.PRODUCTOBJ = productObject
-	button.COLIDER = model.colider
-	button.MONEY = money
-	button.NEXTBUTTONOBJ = nextButtonObject
-	button.value = model.coste.Value
+	self.PRODUCTOBJ = productObject
+	self.COLIDER = model.colider
+	self.MONEY = money
+	self.NEXTBUTTONOBJ = nextButtonObject
+	self.value = model.coste.Value
 	
-	button.isBought = false
-	button.touchEvent = nil
+	self.isBought = false
+	self.touchEvent = nil
 	
-	model.colider.board.text.Text = "Cost: "..button.value
+	model.colider.board.text.Text = "Cost: "..self.value
 	
-	setmetatable(button,Button)
-	return button
+	setmetatable(self,Button)
+	return self
 end
 
 setmetatable(Button,Interactable)

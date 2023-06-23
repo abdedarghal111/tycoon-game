@@ -23,6 +23,13 @@
                     }
                 }
             ]
+        },
+        {
+            "ClassName": "NumberValue",
+            "Name": "velocidad",
+            "Properties": {
+                "Value": 10
+            }
         }
     ]
 }

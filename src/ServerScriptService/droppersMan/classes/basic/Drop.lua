@@ -1,4 +1,5 @@
 local cubeFolder = script.cubeFolder.Value
+local TemporalObjects = require(script.Parent.Parent.primitive.TemporalObjects)
 
 
 local Drop = {}
@@ -42,9 +43,15 @@ function Drop.new(coinBasePart,dropperObj,player)
 	
 	part.Parent = cubeFolder
 	--partCreation
+
+	--TODO: darle las físicas al jugador también
+
+	--TODO: modificar esta parte y reprogramar la nueva versión
 	require(part.getCube):setObject(self)
 	setmetatable(self,Drop)
 	return self
 end
+
+setmetatable(Drop,TemporalObjects)
 
 return Drop

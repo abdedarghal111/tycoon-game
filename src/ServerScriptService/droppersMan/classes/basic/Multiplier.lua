@@ -1,4 +1,6 @@
+local ServerScriptService = game:GetService("ServerScriptService")
 local Interactable = require(script.Parent.Parent.primitive.Interactable)
+local InformationalGui = require(ServerScriptService.droppersMan.classes.primitive.InformationalGui)
 
 local Multiplier = {}
 Multiplier.__index = Multiplier
@@ -33,18 +35,20 @@ end
 
 
 function Multiplier.new(model,player)
-	local multiplier = Interactable.new(player)
+	local self = Interactable.new(player)
 	
-	multiplier.MODEL = model
-	multiplier.DECORATION = model.decoracion
-	multiplier.COLIDER = model.colider
-	multiplier.multiplier = model.multiplicador.Value
-	multiplier.touchEvent = nil
+	self.MODEL = model
+	self.DECORATION = model.decoracion
+	self.COLIDER = model.colider
+	self.multiplier = model.multiplicador.Value
+	self.touchEvent = nil
+
+	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
+
+	self.INFORMATIONALGUI.write("Multiply: x"..self.multiplier)
 	
-	model.colider.board.text.Text = "Multiply: x"..multiplier.multiplier
-	
-	setmetatable(multiplier,Multiplier)
-	return multiplier
+	setmetatable(self,Multiplier)
+	return self
 end
 
 setmetatable(Multiplier,Interactable)

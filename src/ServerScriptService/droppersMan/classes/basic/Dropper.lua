@@ -1,32 +1,22 @@
-local addFunctionFunction = script.Parent.Parent.timerManager.addFunction
-local removeFunctionEvent = script.Parent.Parent.timerManager.removeFunction
-
-
---TODO: modificar esto también
-local Cube = require(script.Parent.Cube)
-
+local Drop = require(script.Parent.Drop)
 local Interactable = require(script.Parent.Parent.primitive.Interactable)
 local TimedRequests = require(script.Parent.Parent.primitive.TimedRequests)
+local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui)
 
 local Dropper = {}
 Dropper.__index = Dropper
 Dropper.MODEL = script.Parent.Parent.models.Dropper
 
 function Dropper:drop()
-	Cube.new(self.SPAWN,self,self.OWNER)
+	Drop.new(self)
 end
 
 function Dropper:startWorking()
-	if not self.cooldownRequest then
-		self.DROPREQUEST:add()
-	end
+	self.DROPREQUEST:add()
 end
 
 function Dropper:stopWorking()
-	if self.cooldownRequest then
-		removeFunctionEvent:Fire()
-		self.cooldownRequest = nil
-	end
+	self.DROPREQUEST:remove()
 end
 
 function Dropper:buy()
@@ -48,10 +38,9 @@ function Dropper.new(model,player)
 	self.cooldown =  model:FindFirstChild("enfriamiento") and model.enfriamiento.Value or Dropper.MODEL.enfriamiento.Value
 
 	self.DROPREQUEST = TimedRequests.new(self,self.drop,self)
+	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	
-	if model.generador:FindFirstChild("board") then
-		model.generador.board.text.Text = "Value: "..self.value
-	end
+	self.INFORMATIONALGUI:write("Money per drop: "..self.value)
 	
 	setmetatable(self,Dropper)
 	return self

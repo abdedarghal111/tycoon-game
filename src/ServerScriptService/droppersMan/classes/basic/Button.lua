@@ -1,9 +1,12 @@
 local players = game:GetService("Players")
-
+local ServerScriptService = game:GetService("ServerScriptService")
 local Interactable = require(script.Parent.Parent.primitive.Interactable)
+local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui)
+local hf = require(game.ServerScriptService.library.helpFunctions)
 
 local Button = {}
 Button.__index = Button
+Button.MODEL = script.Parent.models.Button
 
 function Button:buyProduct()
 	if self.value <= self.MONEY.Value and not self.isBought then
@@ -26,16 +29,23 @@ function Button:dennyEffect()
 	warn("you should comprete that")
 end
 
+function Button:onTouch()
+		if self:buyProduct() then
+			for i,v in pairs(self.PRODUCTS) do
+				self:buy()
+			end
+		else
+			task.wait(1)
+			self:activate()
+		end
+end
+
 function Button:activate()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
 			if hit and players:GetPlayerFromCharacter(hit.Parent) == self.OWNER then
-				self.touchEvent:Disconnect()
-				self.touchEvent = nil
-				if self:buyProduct() then
-					self.PRODUCTOBJ:buy()
-					self.NEXTBUTTONOBJ:activate()
-				end
+				self:deactivate()
+				self:onTouch()
 			end
 		end)
 	end
@@ -47,21 +57,24 @@ function Button:deactivate()
 	end
 end
 
-function Button.new(model,player,money,productObject,nextButtonObject)
+function Button.new(model,player)
 	local self = Interactable.new(model,player)
 
 	--TODO: modificar esto porque esta mal definido
 	
-	self.PRODUCTOBJ = productObject
+	self.PRODUCTS = model.productosAComprar
+	self.NEXTBUTTONS = model.botonesSiguientes
 	self.COLIDER = model.colider
-	self.MONEY = money
-	self.NEXTBUTTONOBJ = nextButtonObject
-	self.value = model.coste.Value
+	self.VALUE = model:FindFirstChild("coste") and model.coste.Value or Button.MODEL.coste.Value
+	--TODO: CAMBIAR EL INPUT DE DINERO
+	self.MONEY = script.money.Value
 	
 	self.isBought = false
 	self.touchEvent = nil
+
+	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	
-	model.colider.board.text.Text = "Cost: "..self.value
+	InformationalGui.write("Cost: "..self.value)
 	
 	setmetatable(self,Button)
 	return self

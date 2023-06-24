@@ -1,0 +1,23 @@
+{
+    "className": "BillboardGui",
+    "children": [
+        {
+            "className": "TextLabel",
+            "Name": "text",
+            "Properties": {
+                "Size": {"UDim2": [[1, 0], [1, 0]]},
+                "TextScaled": true,
+                "BackgroundTransparency": 1,
+                "BorderSizePixel": 0,
+                "TextColor3": [255,255,255],
+                "TextStrokeTransparency": 0,
+                "TextStrokeColor3": [0,0,0]
+            }
+        }
+    ],
+    "Properties": {
+        "StudsOffset": [0,1,0],
+        "Size": {"UDim2": [[1, 0], [1, 0]]},
+        "AlwaysOnTop": true
+    }
+}

@@ -1,9 +1,10 @@
 local cubeFolder = script.cubeFolder.Value
 local TemporalObjects = require(script.Parent.Parent.primitive.TemporalObjects)
-
+local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui)
 
 local Drop = {}
 Drop.__index = Drop
+Drop.MODEL = script.Parent.models.Drop
 
 function Drop:isMultipliedBy(multiplicator)
 	if table.find(self.multipliers,multiplicator) then
@@ -16,40 +17,27 @@ end
 function Drop:multiply(multiplicator,multiply)
 	table.insert(self.multipliers,multiplicator)
 	self.value *= multiply
-	self.BASEPART.board.text.Text = self.value
+	self.INFORMATIONALGUI:write("Value: "..self.value)
 end
 
 
 
-function Drop.new(coinBasePart,dropperObj,player)
-	local self = {}
+function Drop.new(dropperObj)
+	local self = TemporalObjects.new(Drop.MODEL:Clone(),dropperObj.OWNER)
 	
-	self.multipliers = {}
-	self.BASEPART = coinBasePart:Clone()
 	self.CREATOR = dropperObj
-	self.OWNER = player
-	self.value = coinBasePart.Parent.valor.Value
-	
-	--partCreation
-	local part = self.BASEPART
-	local value = coinBasePart.Parent.valor:Clone()
-	part.CanTouch = true
-	part.CanCollide = true
-	part.CanQuery = true
-	part.Transparency = 0
-	part.Anchored = false
-	part.board.text.Text = value.Value
-	value.Parent = self.BASEPART
-	
-	part.Parent = cubeFolder
-	--partCreation
+	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
+	self.value = self.CREATOR.value
+	self.multipliers = {}
 
-	--TODO: darle las físicas al jugador también
-
-	--TODO: modificar esta parte y reprogramar la nueva versión
-	require(part.getCube):setObject(self)
-	setmetatable(self,Drop)
-	return self
+	--partPosition
+	--TODO:definir folder para las piezas
+	self.MODEL.CFrame = dropperObj.SPAWN.CFrame
+	self.MODEL.Parent = workspace
+	self.MODEL:SetNetworkOwnership(self.OWNER)
+	self.INFORMATIONALGUI:write("Value: "..self.value)
+	
+	return setmetatable(self,Drop)
 end
 
 setmetatable(Drop,TemporalObjects)

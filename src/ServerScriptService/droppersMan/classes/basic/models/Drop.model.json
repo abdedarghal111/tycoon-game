@@ -1,49 +1,19 @@
 {
-    "className": "Model",
-    "Children": [
+    "className": "Part",
+    "properties":{
+        "CanTouch" :true,
+        "CanCollide" :true,
+        "CanQuery" :true,
+        "Transparency" :0,
+        "Anchored" :false
+    },
+    "children":[
         {
-            "Name": "generador",
-            "className": "Part",
-            "children": [
-                {
-                    "className": "StringValue",
-                    "Name": "type",
-                    "properties": {
-                        "Value": "Drop"
-                    }
-                },
-                {
-                    "className": "ModuleScript",
-                    "Name": "getCube",
-                    "Properties": {
-                        "Source": "local getCube = {};function getCube:setObject(object);self.object = object;end;function getCube:getObject();return self.object;end;return getCube"
-                    }
-                }
-            ]
-        },
-        {
-            "className": "BillboardGui",
-            "Name": "board",
-            "Properties": {
-                "StudsOffset": [0,1,0],
-                "Size": {"UDim2": [[1, 0], [1, 0]]},
-                "AlwaysOnTop": true
-            },
-            "children": [
-                {
-                    "className": "TextLabel",
-                    "Name": "text",
-                    "Properties": {
-                        "Size": {"UDim2": [[1, 0], [1, 0]]},
-                        "TextScaled": true,
-                        "BackgroundTransparency": 1,
-                        "BorderSizePixel": 0,
-                        "TextColor3": [255,255,255],
-                        "TextStrokeTransparency": 0,
-                        "TextStrokeColor3": [0,0,0]
-                    }
-                }
-            ]
+            "className": "StringValue",
+            "Name": "type",
+            "properties": {
+                "Value": "Drop"
+            }
         }
     ]
 }

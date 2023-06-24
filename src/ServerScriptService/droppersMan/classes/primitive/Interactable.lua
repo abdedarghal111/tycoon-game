@@ -31,11 +31,19 @@ function Interactable:hide()
 	end
 end
 
+function Interactable:buy()
+	warn("Make a buy function for class: "..self.TYPE)
+end
+
 function Interactable:setOwner(player)
 	--TODO:modificar mas adelante
+	warn("Tienes que modificar la funcion setOwner para cada clase")
 	self.OWNER = player
 end
 
+function Interactable:getObjId(model)
+	return Interactable.objects[model.GetAttribute("ID")]
+end
 
 function Interactable.new(model,player)
 	local self = {}

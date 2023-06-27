@@ -2,6 +2,7 @@ local runServ = game:GetService("RunService")
 
 local TimedRequests = {}
 TimedRequests.__index = TimedRequests
+TimedRequests.type = "TimeRequest"
 TimedRequests.requests = {}
 
 function TimedRequests:update()
@@ -31,6 +32,7 @@ function TimedRequests.new(object,_function,...)
 	self.OBJECT = object
 	self.FUNCTION = _function
 	self.FUNCTIONARGS = ...
+	self.type = TimedRequests.type
 	self.tick = tick()
 	
 	setmetatable(self,TimedRequests)

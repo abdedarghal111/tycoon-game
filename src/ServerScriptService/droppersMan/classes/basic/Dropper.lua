@@ -5,6 +5,7 @@ local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui
 
 local Dropper = {}
 Dropper.__index = Dropper
+Dropper.type = "Dropper"
 Dropper.MODEL = script.Parent.Parent.models.Dropper
 
 function Dropper:drop()
@@ -27,8 +28,6 @@ end
 function Dropper:getCooldown()
 	return self.cooldown
 end
-
-
 
 function Dropper.new(model,player)
 	local self = Interactable.new(model,player)

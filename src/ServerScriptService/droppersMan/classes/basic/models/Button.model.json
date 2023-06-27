@@ -12,16 +12,6 @@
             ]
         },
         {
-            "className": "Folder",
-            "Name": "botonesSiguientes",
-            "children": [
-                {
-                    "ClassName": "ObjectValue",
-                    "Name": "boton"
-                }
-            ]
-        },
-        {
             "className": "NumberValue",
             "Name": "coste",
             "properties": {

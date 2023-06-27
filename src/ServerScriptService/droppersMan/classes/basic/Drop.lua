@@ -4,6 +4,8 @@ local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui
 
 local Drop = {}
 Drop.__index = Drop
+Drop.type = "Drop"
+Drop.super = TemporalObjects
 Drop.MODEL = script.Parent.models.Drop
 
 function Drop:isMultipliedBy(multiplicator)

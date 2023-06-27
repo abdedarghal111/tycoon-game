@@ -6,6 +6,7 @@ local runServ = game:GetService("RunService")
 local Convenyor = {}
 Convenyor.__index = Convenyor
 Convenyor.MODEL = script.Parent.models.Convenyor
+Convenyor.type = "Convenyor"
 
 function Convenyor:start()
 	for _,cinta in pairs(self.CONVENYORS:GetDescendants()) do

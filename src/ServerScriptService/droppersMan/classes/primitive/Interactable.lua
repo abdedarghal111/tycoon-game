@@ -2,12 +2,28 @@ local Interactable = {}
 
 Interactable.objects = {}
 Interactable.__index = Interactable
+Interactable.type = "Interactable"
 
 function Interactable.giveId(object)
 	local posicion = #Interactable.objects + 1
 	Interactable.objects[posicion] = object
 	return posicion
 end
+
+function Interactable.getObject(model)
+	local id = model:GetAttribute("ID")
+	if id then
+		return Interactable.objects[id]
+	end
+end
+
+
+function Interactable:isA(type)
+	if type == Interactable.type then
+		return true
+	end
+end
+
 
 function Interactable:show()
 	for i,v in pairs(self.DECORATION:GetDescendants()) do
@@ -53,8 +69,10 @@ function Interactable.new(model,player)
 	self.COLIDERS = model:FindFirstChild("colisiones") or nil
 	self.DECORATION = model.FindFirstChild("decoracion") or nil
 	self.owner = player or nil
+	self.type = Interactable.type
 
 	model:SetAttribute("ID",self.ID)
+	model:SetAttribute("type",Interactable.type)
 
 	
 	return setmetatable(self,Interactable)

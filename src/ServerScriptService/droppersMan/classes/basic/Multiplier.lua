@@ -1,23 +1,31 @@
 local ServerScriptService = game:GetService("ServerScriptService")
 local Interactable = require(script.Parent.Parent.primitive.Interactable)
 local InformationalGui = require(ServerScriptService.droppersMan.classes.primitive.InformationalGui)
+local TemporalObjects = require(script.Parent.Parent.primitive.TemporalObjects)
 
 local Multiplier = {}
 Multiplier.__index = Multiplier
-
-function Multiplier:multiply(part)
-	if not part:isMultipliedBy(self) then
-		part:multiply(self,self.multiplier)
-	end
-end
+Multiplier.type = "Multiplier"
+Multiplier.super = Interactable
 
 function Multiplier:startWorking()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
-			if hit:FindFirstChild("type") and hit.type.Value == "cube" then
-				self:multiply(require(hit.getCube):getObject())
+			if hit:GetAttribute("type") == TemporalObjects.type then
+				self:onTemporalObjectTouch(TemporalObjects.getObject(hit))
 			end
 		end)
+	end
+end
+
+function Multiplier:onTemporalObjectTouch(drop)
+	if not drop then return end
+	self:multiply(drop)
+end
+
+function Multiplier:multiply(drop)
+	if not drop:isMultipliedBy(self) then
+		drop:multiply(self,self.multiplier)
 	end
 end
 
@@ -42,6 +50,7 @@ function Multiplier.new(model,player)
 	self.COLIDER = model.colider
 	self.multiplier = model.multiplicador.Value
 	self.touchEvent = nil
+	self.type = Multiplier.type
 
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 

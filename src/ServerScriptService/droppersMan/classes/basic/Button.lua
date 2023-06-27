@@ -6,11 +6,13 @@ local hf = require(game.ServerScriptService.library.helpFunctions)
 
 local Button = {}
 Button.__index = Button
+Button.__index = "Button"
 Button.MODEL = script.Parent.models.Button
 
 function Button:buyProduct()
 	if self.value <= self.MONEY.Value and not self.isBought then
 		self.MONEY.Value -= self.value
+		self.isBought = true
 		self:purchaseEffect()
 		return true
 	else
@@ -31,14 +33,35 @@ end
 
 function Button:onTouch()
 		if self:buyProduct() then
-			for i,v in pairs(self.PRODUCTS) do
-				self:buy()
-			end
+			self:buyProducts()
+			self:hide()
 		else
 			task.wait(1)
 			self:activate()
 		end
 end
+
+function Button:buyProducts()
+	for i,v in pairs(self.PRODUCTS.GetChildren()) do
+
+		local model = v.Value
+
+		if model:GetAttribute("type") == Interactable.type then
+			local object = Interactable.getObject(model)
+			if object then
+				object:buy()
+			else
+				warn("is not a object(func: button:onTouch)")
+				continue
+			end
+		else
+			warn("Is not a interactable(func: button:onTouch)")
+		end
+
+	end
+	
+end
+
 
 function Button:activate()
 	if not self.touchEvent then
@@ -59,11 +82,8 @@ end
 
 function Button.new(model,player)
 	local self = Interactable.new(model,player)
-
-	--TODO: modificar esto porque esta mal definido
 	
 	self.PRODUCTS = model.productosAComprar
-	self.NEXTBUTTONS = model.botonesSiguientes
 	self.COLIDER = model.colider
 	self.VALUE = model:FindFirstChild("coste") and model.coste.Value or Button.MODEL.coste.Value
 	--TODO: CAMBIAR EL INPUT DE DINERO

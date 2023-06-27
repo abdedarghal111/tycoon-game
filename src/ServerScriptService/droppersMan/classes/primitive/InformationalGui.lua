@@ -1,5 +1,6 @@
 local InformationalGui = {}
 InformationalGui.__index = InformationalGui
+InformationalGui.type = "InformationalGui"
 InformationalGui.MODEL = script.Parent.models.InformationalGui
 
 function InformationalGui:write(text)
@@ -16,6 +17,7 @@ function InformationalGui.new(instance)
     self.MODEL = InformationalGui.MODEL:Clone()
     self.TEXT = self.MODEL.text
     self.ASOCIATEDTO = instance
+    self.type = InformationalGui.type
 
     self.Model.Parent = instance
 

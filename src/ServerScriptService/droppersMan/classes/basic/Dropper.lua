@@ -6,7 +6,7 @@ local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui
 local Dropper = {}
 Dropper.__index = Dropper
 Dropper.type = "Dropper"
-Dropper.MODEL = script.Parent.Parent.models.Dropper
+Dropper.MODEL = script.Parent.models.Dropper
 
 function Dropper:drop()
 	Drop.new(self)
@@ -36,7 +36,7 @@ function Dropper.new(model,player)
 	self.value = model:FindFirstChild("Valor") and model.valor.Value or Dropper.MODEL.valor.Value
 	self.cooldown =  model:FindFirstChild("enfriamiento") and model.enfriamiento.Value or Dropper.MODEL.enfriamiento.Value
 
-	self.DROPREQUEST = TimedRequests.new(self,self.drop,self)
+	self.DROPREQUEST = TimedRequests.new(self,"drop",self)
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	
 	self.INFORMATIONALGUI:write("Money per drop: "..self.value)
@@ -45,5 +45,5 @@ function Dropper.new(model,player)
 	return self
 end
 
-
+setmetatable(Dropper,Interactable)
 return Dropper

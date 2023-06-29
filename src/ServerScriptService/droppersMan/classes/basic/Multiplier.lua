@@ -43,7 +43,7 @@ end
 
 
 function Multiplier.new(model,player)
-	local self = Interactable.new(player)
+	local self = Interactable.new(model,player)
 	
 	self.MODEL = model
 	self.DECORATION = model.decoracion
@@ -54,7 +54,7 @@ function Multiplier.new(model,player)
 
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 
-	self.INFORMATIONALGUI.write("Multiply: x"..self.multiplier)
+	self.INFORMATIONALGUI:write("Multiply: x"..self.multiplier)
 	
 	setmetatable(self,Multiplier)
 	return self

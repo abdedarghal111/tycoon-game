@@ -1,5 +1,5 @@
 {
-    "className": "Model",
+    "className": "Part",
     "Children": [
         {
             "ClassName": "NumberValue",

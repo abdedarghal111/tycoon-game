@@ -20,7 +20,10 @@ function Convenyor:stop()
 	end
 end
 
-
+function Convenyor:buy()
+	self:show()
+	self:start()
+end
 
 function Convenyor.new(model,player)
 	local self = Interactable.new(model,player)
@@ -31,4 +34,5 @@ function Convenyor.new(model,player)
 	return setmetatable(self,Convenyor)
 end
 
+setmetatable(Convenyor,Interactable)
 return Convenyor

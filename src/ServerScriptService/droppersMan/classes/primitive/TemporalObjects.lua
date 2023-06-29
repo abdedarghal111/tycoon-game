@@ -5,14 +5,14 @@ TemporalObjects.__index = TemporalObjects
 TemporalObjects.type = "TemporalObject"
 TemporalObjects.objects = {} -- ["playerName"] = {"tabla1" = {},"tabla2" = {}}
 TemporalObjects.currentActiveTable = 1
-TemporalObjects.COOLDOWN = 30
+TemporalObjects.COOLDOWN = 3
 TemporalObjects.tableCount = 0
 
 function TemporalObjects.giveId(object,player)
-	local posicion = TemporalObjects.tableCount + 1
-	TemporalObjects.objects[player.Name][TemporalObjects.currentActiveTable][posicion] = object
+    TemporalObjects.tableCount += 1
+	TemporalObjects.objects[player.Name][TemporalObjects.currentActiveTable][TemporalObjects.tableCount] = object
 
-	return posicion
+	return TemporalObjects.tableCount
 end
 
 function TemporalObjects.getObject(model)
@@ -39,11 +39,11 @@ end
 function TemporalObjects.new(model,player)
     local self = {}
 
-    self.ID = TemporalObjects.giveId(self,player)
-    self.ASOCIATEDTABLE = TemporalObjects.currentActiveTable
     self.MODEL = model
     self.OWNER = player or error("didn' gave any player")
     self.type = TemporalObjects.type
+    self.ID = TemporalObjects.giveId(self,player)
+    self.ASOCIATEDTABLE = TemporalObjects.currentActiveTable
 
     model:SetAttribute("ID",self.ID)
     model:SetAttribute("ASOCIATEDTABLE",self.ASOCIATEDTABLE)
@@ -54,26 +54,33 @@ function TemporalObjects.new(model,player)
 end
 
 players.PlayerAdded:Connect(function(player)
-    TemporalObjects.objects[player.Name] = {}
+    TemporalObjects.objects[player.Name] = {[1] = {},[2] = {}}
 end)
 
 players.PlayerRemoving:Connect(function(player)
-    for _,object in pairs(TemporalObjects.objects[player.Name]) do
-        object:destroy()
+    for _,tableWithObjs in pairs(TemporalObjects.objects[player.Name]) do
+        --object:destroy()
+        local lastIndex,lastValue = next(tableWithObjs, nil)
+        while lastValue do
+            tableWithObjs[lastIndex]:destroy()
+            lastIndex,lastValue = next(tableWithObjs, lastIndex)
+        end
     end
+    
     TemporalObjects.objects[player.Name] = nil
 end)
 
 local function clearTable(tableNumber)
+    --if #TemporalObjects.objects == 0 then  print"vacio" return end
     for playerIndex,_ in pairs(TemporalObjects.objects) do
         --Pasar por todos los valores de la tabla indicada por todos los jugadores
-        local lastValue,lastIndex = next(TemporalObjects[playerIndex][tableNumber], nil)
+        local lastIndex,lastValue = next(TemporalObjects.objects[playerIndex][tableNumber], nil)
         while lastValue do
-            lastIndex,lastValue = next(TemporalObjects[playerIndex][tableNumber], lastIndex)
-            TemporalObjects[playerIndex][tableNumber][lastIndex]:destroy()
+            TemporalObjects.objects[playerIndex][tableNumber][lastIndex]:destroy()
+            lastIndex,lastValue = next(TemporalObjects.objects[playerIndex][tableNumber], lastIndex)
         end
         --al finalizar crear una nueva limpia
-        TemporalObjects[playerIndex][tableNumber] = {}
+        TemporalObjects.objects[playerIndex][tableNumber] = {}
     end
 end
 

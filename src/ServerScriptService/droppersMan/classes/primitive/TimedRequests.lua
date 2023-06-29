@@ -6,9 +6,9 @@ TimedRequests.type = "TimeRequest"
 TimedRequests.requests = {}
 
 function TimedRequests:update()
-	if tick() - self.tick > self.object:getCooldown() then
+	if tick() - self.tick > self.OBJECT.cooldown then
 		self.tick = tick()
-		self.FUNCTION(self.FUNCTIONARGS)
+		self.OBJECT[self.FUNCTION](self.FUNCTIONARGS)
 	end
 end
 

@@ -1,4 +1,3 @@
-local cubeFolder = script.cubeFolder.Value
 local TemporalObjects = require(script.Parent.Parent.primitive.TemporalObjects)
 local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui)
 
@@ -25,23 +24,21 @@ end
 
 
 function Drop.new(dropperObj)
-	local self = TemporalObjects.new(Drop.MODEL:Clone(),dropperObj.OWNER)
+	local self = TemporalObjects.new(Drop.MODEL:Clone(),dropperObj.owner)
 	
 	self.CREATOR = dropperObj
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	self.value = self.CREATOR.value
 	self.multipliers = {}
 
-	--partPosition
 	--TODO:definir folder para las piezas
 	self.MODEL.CFrame = dropperObj.SPAWN.CFrame
 	self.MODEL.Parent = workspace
-	self.MODEL:SetNetworkOwnership(self.OWNER)
+	self.MODEL:SetNetworkOwner(self.OWNER)
 	self.INFORMATIONALGUI:write("Value: "..self.value)
 	
 	return setmetatable(self,Drop)
 end
 
 setmetatable(Drop,TemporalObjects)
-
 return Drop

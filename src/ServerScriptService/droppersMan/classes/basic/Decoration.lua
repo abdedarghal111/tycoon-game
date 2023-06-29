@@ -4,6 +4,10 @@ local Decoration = {}
 Decoration.__index = Decoration
 Decoration.type = "Decoration"
 
+function Decoration:buy()
+	self:show()
+end
+
 function Decoration.new(model,player)
     local self = Interactable.new(model,player)
 
@@ -11,5 +15,5 @@ function Decoration.new(model,player)
 
     return setmetatable(self,Decoration)
 end
-
+setmetatable(Decoration,Interactable)
 return Decoration

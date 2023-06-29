@@ -12,8 +12,11 @@ end
 
 function Interactable.getObject(model)
 	local id = model:GetAttribute("ID")
-	if id then
+	local type = model:GetAttribute("type")
+	if id and type == Interactable.type then
 		return Interactable.objects[id]
+	else
+		warn("Not a interactable")
 	end
 end
 
@@ -54,7 +57,7 @@ end
 function Interactable:setOwner(player)
 	--TODO:modificar mas adelante
 	warn("Tienes que modificar la funcion setOwner para cada clase")
-	self.OWNER = player
+	self.owner = player
 end
 
 function Interactable:getObjId(model)
@@ -67,7 +70,7 @@ function Interactable.new(model,player)
 	self.ID = Interactable.giveId(self)
 	self.MODEL = model
 	self.COLIDERS = model:FindFirstChild("colisiones") or nil
-	self.DECORATION = model.FindFirstChild("decoracion") or nil
+	self.DECORATION = model:FindFirstChild("decoracion") or nil
 	self.owner = player or nil
 	self.type = Interactable.type
 

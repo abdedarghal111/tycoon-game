@@ -2,16 +2,15 @@ local players = game:GetService("Players")
 local ServerScriptService = game:GetService("ServerScriptService")
 local Interactable = require(script.Parent.Parent.primitive.Interactable)
 local InformationalGui = require(script.Parent.Parent.primitive.InformationalGui)
-local hf = require(game.ServerScriptService.library.helpFunctions)
 
 local Button = {}
 Button.__index = Button
-Button.__index = "Button"
+Button.type = "Button"
 Button.MODEL = script.Parent.models.Button
 
 function Button:buyProduct()
-	if self.value <= self.MONEY.Value and not self.isBought then
-		self.MONEY.Value -= self.value
+	if self.VALUE <= self.MONEY.Value and not self.isBought then
+		self.MONEY.Value -= self.VALUE
 		self.isBought = true
 		self:purchaseEffect()
 		return true
@@ -42,7 +41,7 @@ function Button:onTouch()
 end
 
 function Button:buyProducts()
-	for i,v in pairs(self.PRODUCTS.GetChildren()) do
+	for i,v in pairs(self.PRODUCTS:GetChildren()) do
 
 		local model = v.Value
 
@@ -66,7 +65,7 @@ end
 function Button:activate()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
-			if hit and players:GetPlayerFromCharacter(hit.Parent) == self.OWNER then
+			if hit and players:GetPlayerFromCharacter(hit.Parent) == self.owner then
 				self:deactivate()
 				self:onTouch()
 			end
@@ -80,6 +79,11 @@ function Button:deactivate()
 	end
 end
 
+function Button:buy()
+	self:show()
+	self:activate()
+end
+
 function Button.new(model,player)
 	local self = Interactable.new(model,player)
 	
@@ -87,17 +91,16 @@ function Button.new(model,player)
 	self.COLIDER = model.colider
 	self.VALUE = model:FindFirstChild("coste") and model.coste.Value or Button.MODEL.coste.Value
 	--TODO: CAMBIAR EL INPUT DE DINERO
-	self.MONEY = script.money.Value
+	self.MONEY = players["abdedarghal111"].leaderstats.Money
 	
 	self.isBought = false
 	self.touchEvent = nil
 
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	
-	InformationalGui.write("Cost: "..self.value)
+	InformationalGui:write("Cost: "..self.VALUE)
 	
-	setmetatable(self,Button)
-	return self
+	return setmetatable(self,Button)
 end
 
 setmetatable(Button,Interactable)

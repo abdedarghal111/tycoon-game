@@ -24,7 +24,11 @@ end
 
 
 function Drop.new(dropperObj)
-	local self = TemporalObjects.new(Drop.MODEL:Clone(),dropperObj.owner)
+	local drop = dropperObj.MODEL:FindFirstChild("drop") and dropperObj.MODEL.drop:Clone() or Drop.MODEL:Clone()
+	drop.Anchored = false
+	drop.CanCollide = true
+	drop.CanTouch = true
+	local self = TemporalObjects.new(drop,dropperObj.owner)
 	
 	self.CREATOR = dropperObj
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
@@ -34,7 +38,7 @@ function Drop.new(dropperObj)
 	--TODO:definir folder para las piezas
 	self.MODEL.CFrame = dropperObj.SPAWN.CFrame
 	self.MODEL.Parent = workspace
-	self.MODEL:SetNetworkOwner(self.OWNER)
+	self.MODEL:SetNetworkOwner(self.OWNER:get())
 	self.INFORMATIONALGUI:write("Value: "..self.value)
 	
 	return setmetatable(self,Drop)

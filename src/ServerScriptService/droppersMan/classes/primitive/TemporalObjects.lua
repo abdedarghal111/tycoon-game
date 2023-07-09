@@ -5,12 +5,12 @@ TemporalObjects.__index = TemporalObjects
 TemporalObjects.type = "TemporalObject"
 TemporalObjects.objects = {} -- ["playerName"] = {"tabla1" = {},"tabla2" = {}}
 TemporalObjects.currentActiveTable = 1
-TemporalObjects.COOLDOWN = 3
+TemporalObjects.COOLDOWN = 30
 TemporalObjects.tableCount = 0
 
 function TemporalObjects.giveId(object,player)
     TemporalObjects.tableCount += 1
-	TemporalObjects.objects[player.Name][TemporalObjects.currentActiveTable][TemporalObjects.tableCount] = object
+	TemporalObjects.objects[player:getName()][TemporalObjects.currentActiveTable][TemporalObjects.tableCount] = object
 
 	return TemporalObjects.tableCount
 end
@@ -20,8 +20,8 @@ function TemporalObjects.getObject(model)
 
     local ID = model:GetAttribute("ID")
     local ASOCIATEDTABLE = model:GetAttribute("ASOCIATEDTABLE")
-    local OWNER = players[model:GetAttribute("player")]
-
+    local OWNER = model:GetAttribute("OWNER")
+    
     return TemporalObjects.objects[OWNER][ASOCIATEDTABLE][ID]
 end
 
@@ -33,7 +33,7 @@ end
 
 function TemporalObjects:destroy()
     self.MODEL:Destroy()
-    --TemporalObjects.objects[self.OWNER][self.ASOCIATEDTABLE][self.ID] = nil
+    --TemporalObjects.objects[self.OWNER:getName()][self.ASOCIATEDTABLE][self.ID] = nil
 end
 
 function TemporalObjects.new(model,player)
@@ -47,7 +47,7 @@ function TemporalObjects.new(model,player)
 
     model:SetAttribute("ID",self.ID)
     model:SetAttribute("ASOCIATEDTABLE",self.ASOCIATEDTABLE)
-    model:SetAttribute("OWNER",self.OWNER.Name)
+    model:SetAttribute("OWNER",self.OWNER:getName())
     model:SetAttribute("type",TemporalObjects.type)
 
     return setmetatable(self,TemporalObjects)

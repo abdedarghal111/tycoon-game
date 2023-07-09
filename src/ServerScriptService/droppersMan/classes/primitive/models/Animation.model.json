@@ -1,0 +1,42 @@
+{
+    "ClassName":"Model",
+    "Children":[
+        {
+            "className": "AnimationController",
+            "children":[
+                {
+                    "className": "Animator"
+                }
+            ]
+        },
+        {
+            "className": "Part",
+            "Name": "HumanoidRootPart",
+            "properties": {
+                "Anchored":true
+            }
+        },
+        {
+            "ClassName": "Folder",
+            "Name": "Animations",
+            "children":[
+                {
+                    "className": "Animation"
+                },
+                {
+                    "className": "Animation"
+                },
+                {
+                    "className": "Animation"
+                }
+            ]
+        },
+        {
+            "className": "ModuleScript",
+            "Name": "GFX",
+            "properties":{
+            "Source":"return {}"
+            }
+        }
+    ]
+}

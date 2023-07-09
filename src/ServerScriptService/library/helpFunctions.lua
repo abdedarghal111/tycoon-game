@@ -4,6 +4,7 @@ local HelpFunctions = {}
 HelpFunctions.classes = {}
 for i,instance in pairs(script.Parent.Parent.droppersMan.classes:GetDescendants()) do
     if instance:IsA("ModuleScript") then
+        --print(instance.Name)
         HelpFunctions.classes[instance.Name] = require(instance)
     end
 end

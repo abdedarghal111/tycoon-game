@@ -3,12 +3,12 @@ local Interactable = require(script.Parent.Parent.primitive.Interactable)
 local InformationalGui = require(ServerScriptService.droppersMan.classes.primitive.InformationalGui)
 local TemporalObjects = require(script.Parent.Parent.primitive.TemporalObjects)
 
-local Multiplier = {}
-Multiplier.__index = Multiplier
-Multiplier.type = "Multiplier"
-Multiplier.super = Interactable
+local Seller = {}
+Seller.__index = Seller
+Seller.type = "Seller"
+Seller.super = Interactable
 
-function Multiplier:startWorking()
+function Seller:startWorking()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
 			if hit:GetAttribute("type") == TemporalObjects.type then
@@ -18,53 +18,43 @@ function Multiplier:startWorking()
 	end
 end
 
-
-function Multiplier:onTemporalObjectTouch(drop)
-	if not drop then return end
-	self:multiply(drop)
-	self:onDropDetected(drop) --para las clases futuras(hay varias clases así)
-end
-
-function Multiplier:multiply(drop)
-	if not drop:isMultipliedBy(self) then
-		drop:multiply(self,self.multiplier)
-	end
-end
-
-function Multiplier:stopWorking()
+function Seller:stopWorking()
 	if self.touchEvent then
 		self.touchEvent:Disconnect()
 		self.touchEvent = nil
 	end
 end
 
-function Multiplier:onRemovingPlayer()
-	self:stopWorking()
-	self:hide()
+function Seller:onTemporalObjectTouch(drop)
+	if not drop then return end
+    self.owner:giveMoney(drop.value)
+	drop:destroy()
 end
 
-function Multiplier:buy()
+function Seller:onRemovingPlayer()
+	self:stopWorking()
+end
+
+function Seller:buy()
 	self:show()
 	self:startWorking()
 end
 
 
-function Multiplier.new(model,player)
+function Seller.new(model,player)
 	local self = Interactable.new(model,player)
 	
-	self.MODEL = model
 	self.COLIDER = model.colider
-	self.multiplier = model.multiplicador.Value
 	self.touchEvent = nil
-	self.type = Multiplier.type
+	self.type = Seller.type
 
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 
-	self.INFORMATIONALGUI:write("Multiply: x"..self.multiplier)
+	self.INFORMATIONALGUI:write("Seller")
 	
-	setmetatable(self,Multiplier)
+	setmetatable(self,Seller)
 	return self
 end
 
-setmetatable(Multiplier,Interactable)
-return Multiplier
+setmetatable(Seller,Interactable)
+return Seller

@@ -1,0 +1,30 @@
+{
+    "ClassName":"Part",
+    "Children":[
+        {
+            "ClassName": "StringValue",
+            "Name": "type",
+            "Properties": {
+                "Value": "CustomizableDrop"
+            }
+        },
+        {
+            "ClassName": "Folder",
+            "Name": "decoracion",
+            "children":[
+                {
+                    "ClassName": "Folder",
+                    "Name": "fase 1"
+                },
+                {
+                    "ClassName": "Folder",
+                    "Name": "fase 2"
+                },
+                {
+                    "ClassName": "Folder",
+                    "Name": "fase 3..."
+                }
+            ]
+        }
+    ]
+}

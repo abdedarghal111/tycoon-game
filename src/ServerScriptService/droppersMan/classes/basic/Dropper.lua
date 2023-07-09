@@ -25,6 +25,11 @@ function Dropper:buy()
 	self:startWorking()
 end
 
+function Dropper:onRemovingPlayer()
+	self:stopWorking()
+end
+
+
 function Dropper:getCooldown()
 	return self.cooldown
 end

@@ -9,8 +9,9 @@ Button.type = "Button"
 Button.MODEL = script.Parent.models.Button
 
 function Button:buyProduct()
-	if self.VALUE <= self.MONEY.Value and not self.isBought then
-		self.MONEY.Value -= self.VALUE
+	local money = self.owner:getMoney()
+	if self.VALUE <= money and not self.isBought then
+		self.owner:removeMoney(self.VALUE)
 		self.isBought = true
 		self:purchaseEffect()
 		return true
@@ -63,9 +64,10 @@ end
 
 
 function Button:activate()
+	local owner = self.owner:get()
 	if not self.touchEvent then
 		self.touchEvent = self.COLIDER.Touched:Connect(function(hit)
-			if hit and players:GetPlayerFromCharacter(hit.Parent) == self.owner then
+			if hit and players:GetPlayerFromCharacter(hit.Parent) == owner then
 				self:deactivate()
 				self:onTouch()
 			end
@@ -79,6 +81,10 @@ function Button:deactivate()
 	end
 end
 
+function Button:onRemovingPlayer()
+	self:deactivate()
+end
+
 function Button:buy()
 	self:show()
 	self:activate()
@@ -90,8 +96,6 @@ function Button.new(model,player)
 	self.PRODUCTS = model.productosAComprar
 	self.COLIDER = model.colider
 	self.VALUE = model:FindFirstChild("coste") and model.coste.Value or Button.MODEL.coste.Value
-	--TODO: CAMBIAR EL INPUT DE DINERO
-	self.MONEY = players["abdedarghal111"].leaderstats.Money
 	
 	self.isBought = false
 	self.touchEvent = nil

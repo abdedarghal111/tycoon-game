@@ -10,14 +10,18 @@ Convenyor.type = "Convenyor"
 
 function Convenyor:start()
 	for _,cinta in pairs(self.CONVENYORS:GetDescendants()) do
-		cinta.AssemblyLinearVelocity = Vector3.zero
+		cinta.AssemblyLinearVelocity = cinta.CFrame.LookVector * self.speed
 	end
 end
 
 function Convenyor:stop()
 	for _,cinta in pairs(self.CONVENYORS:GetDescendants()) do
-		cinta.AssemblyLinearVelocity = cinta.CFrame.LookVector * self.speed
+		cinta.AssemblyLinearVelocity = Vector3.zero
 	end
+end
+
+function Convenyor:onRemovingPlayer()
+	self:stop()
 end
 
 function Convenyor:buy()

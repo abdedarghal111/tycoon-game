@@ -3,28 +3,26 @@ local hf = require(script.Parent.Parent.library.helpFunctions)
 game.Players.PlayerAdded:Wait()
 local plr = game.Players:WaitForChild("abdedarghal111")
 
-local leaderstats = Instance.new("Folder")
-leaderstats.Name = "leaderstats"
-leaderstats.Parent = plr
+local testingPlace = workspace.testing
 
-local money = Instance.new("IntValue")
-money.Name = "Money"
-money.Value = 100
-money.Parent = leaderstats
+local playerObj = hf:getClass("Player").new(plr)
 
-local testingPlace = workspace.testing.test
-
-for i,v in pairs(testingPlace:GetDescendants()) do
+for i,v in pairs(workspace:GetDescendants()) do
 	if v:IsA("Model") and v:FindFirstChild("type") then
-		hf:getClass(v.type.Value).new(v,plr)
+		local class = hf:getClass(v.type.Value)
+		object = class.new(v,plr)
+		object:removePlayer()
+		object:setPlayer(playerObj)
 	end
 end
 
-local button = hf:getClass("Button").getObject(testingPlace.Button)
-
+--basic drops
+local button = hf:getClass("Button").getObject(testingPlace["complete models"]["basic droppers"].Button)
+button:show()
 button:activate()
---for i,v in pairs(button) do 
----	print(i,"=",v)
---end
+--fin basic drops
 
---print(getmetatable(button))
+local button2 = hf:getClass("Button").getObject(testingPlace.test2.Button)
+
+button2:show()
+button2:activate()

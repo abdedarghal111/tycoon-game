@@ -1,0 +1,24 @@
+{
+    "className": "Model",
+    "children": [
+        {
+            "ClassName": "StringValue",
+            "Name": "type",
+            "Properties": {
+                "Value": "Seller"
+            }
+        },
+        {
+            "className": "Part",
+            "Name": "colider",
+            "properties": {
+                "CanCollide": false,
+                "CanQuery": false,
+                "CanTouch":true,
+                "Transparency":1,
+                "Massless": true,
+                "Anchored": true
+            }
+        }
+    ]
+}

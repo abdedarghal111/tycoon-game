@@ -1,5 +1,6 @@
 local Dropper = require(script.Parent.Parent.basic.Dropper)
 local CustomizableDrop = require(script.Parent.CustomizableDrop)
+local GFX = require(script.Parent.Parent.primitive.GFX)
 
 local StartingDropper = {}
 StartingDropper.__index = StartingDropper

@@ -11,6 +11,15 @@ function InformationalGui:erase()
     self.MODEL.text.Text = ""
 end
 
+function InformationalGui:hide()
+    self.MODEL.Enabled = false
+end
+
+function InformationalGui:show()
+    self.MODEL.Enabled = true
+end
+
+
 
 function InformationalGui.new(instance)
     local self = {}

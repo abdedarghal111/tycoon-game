@@ -80,10 +80,8 @@ function Interactable:buy()
 	warn("Make a buy function for class: "..self.TYPE)
 end
 
-function Interactable:setOwner(player)
-	--TODO:modificar mas adelante
-	warn("Tienes que modificar la funcion setOwner para cada clase")
-	self.owner = player
+function Interactable:setOwner(owner)
+	self.owner = owner
 end
 
 function Interactable:getObjId(model)

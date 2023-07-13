@@ -10,6 +10,9 @@ TemporalObjects.tableCount = 0
 
 function TemporalObjects.giveId(object,player)
     TemporalObjects.tableCount += 1
+    if not TemporalObjects.objects[player:getName()] then
+        TemporalObjects.objects[player:getName()] = {[1] = {},[2] = {}}
+    end
 	TemporalObjects.objects[player:getName()][TemporalObjects.currentActiveTable][TemporalObjects.tableCount] = object
 
 	return TemporalObjects.tableCount
@@ -53,11 +56,11 @@ function TemporalObjects.new(model,player)
     return setmetatable(self,TemporalObjects)
 end
 
-players.PlayerAdded:Connect(function(player)
+TemporalObjects.playerAddedEvent = players.PlayerAdded:Connect(function(player)
     TemporalObjects.objects[player.Name] = {[1] = {},[2] = {}}
 end)
 
-players.PlayerRemoving:Connect(function(player)
+TemporalObjects.playerRemovingEvent = players.PlayerRemoving:Connect(function(player)
     for _,tableWithObjs in pairs(TemporalObjects.objects[player.Name]) do
         --object:destroy()
         local lastIndex,lastValue = next(tableWithObjs, nil)
@@ -96,5 +99,10 @@ task.spawn(function()
         clearTable(1)
     end
 end)
+
+--para activar eventos(bug) por alguna razón no se ejecutan los eventos a menos que los actives seleccionandolos
+print(TemporalObjects.playerAddedEvent)
+print(TemporalObjects.playerRemovingEvent)
+--fin bug
 
 return TemporalObjects

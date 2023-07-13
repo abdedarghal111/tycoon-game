@@ -18,6 +18,7 @@
     "Properties": {
         "StudsOffset": [0,1,0],
         "Size": {"UDim2": [[1, 0], [1, 0]]},
-        "AlwaysOnTop": true
+        "AlwaysOnTop": true,
+        "ResetOnSpawn":false
     }
 }

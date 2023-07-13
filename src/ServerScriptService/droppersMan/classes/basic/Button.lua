@@ -21,6 +21,16 @@ function Button:buyProduct()
 	end
 end
 
+function Button:show()
+	Interactable.show(self)
+	self.INFORMATIONALGUI:show()
+end
+
+function Button:hide()
+	Interactable.hide(self)
+	self.INFORMATIONALGUI:hide()
+end
+
 function Button:purchaseEffect()
 	--TODO: complete
 	warn("complete this")
@@ -34,7 +44,7 @@ end
 function Button:onTouch()
 		if self:buyProduct() then
 			self:buyProducts()
-			self:hide()
+			--self:hide()
 		else
 			task.wait(1)
 			self:activate()
@@ -102,7 +112,7 @@ function Button.new(model,player)
 
 	self.INFORMATIONALGUI = InformationalGui.new(self.MODEL)
 	
-	InformationalGui:write("Cost: "..self.VALUE)
+	self.INFORMATIONALGUI:write(self.MODEL.Name.."\n"..self.VALUE)
 	
 	return setmetatable(self,Button)
 end

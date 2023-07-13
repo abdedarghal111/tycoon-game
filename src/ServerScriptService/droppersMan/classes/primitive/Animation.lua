@@ -1,15 +1,15 @@
 local Animation = {}
 Animation.__index = Animation
 
-function Animation:play(anim:string)
-    local animation:AnimationTrack = self.ANIMATIONS[anim]
-    local GFXfunc = self.GFX[anim]
-    if not animation.IsPlaying then
+local GFX = require(script.Parent.GFX)
+
+function Animation:play(animName:string)
+    local animation : AnimationTrack = self.ANIMATIONS[animName]
+    
+    if animation and not animation.IsPlaying then
         animation:Play()
-        if GFXfunc then
-            GFXfunc()
-        end
     end
+    self.GFX:play(animName)
 end
 
 function Animation:showModel()
@@ -28,7 +28,6 @@ function Animation:hideModel()
 	end
 end
 
-
 function Animation.new(model)
     local self = {}
 
@@ -36,7 +35,7 @@ function Animation.new(model)
     self.ANIMATIONCONTROLLER = model.AnimationController
     self.ANIMATOR = model.AnimationController.Animator
     self.HUMANOIDROOTPART = model.HumanoidRootPart
-    self.GFX = model:FindFirstChild("GFX") and require(model.GFX) or {}
+    self.GFX = GFX.new(model.GFX)
     self.ANIMATIONS = {}
     for i,v in pairs(model.Animaciones:GetChildren()) do
         self.ANIMATIONS[v.Name] = self.ANIMATOR:LoadAnimation(v)

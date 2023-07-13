@@ -21,8 +21,6 @@ function Drop:multiply(multiplicator,multiply)
 	self.INFORMATIONALGUI:write("Value: "..self.value)
 end
 
-
-
 function Drop.new(dropperObj)
 	local drop = dropperObj.MODEL:FindFirstChild("drop") and dropperObj.MODEL.drop:Clone() or Drop.MODEL:Clone()
 	drop.Anchored = false

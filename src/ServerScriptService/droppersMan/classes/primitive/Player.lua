@@ -1,5 +1,7 @@
+local Players = game:GetService("Players")
 local Player = {}
 Player.__index = Player
+Player.players = {}
 
 function Player.newMoneyValue(self,player)
     if not player:FindFirstChild("leaderstats") then
@@ -11,6 +13,15 @@ function Player.newMoneyValue(self,player)
     self.MONEYVALUE.Name = "Money"
     self.MONEYVALUE.Parent = player.leaderstats
 end
+
+function Player.getPlayerByInstance(player)
+    if Player.players[player.Name] then
+        return Player.players[player.Name]
+    else
+        return nil
+    end
+end
+
 
 
 function Player:getMoney()
@@ -32,7 +43,6 @@ function Player:removeMoney(money)
     self.MONEYVALUE.Value -= money
 end
 
-
 function Player:get()
     return self.PLAYER
 end
@@ -42,15 +52,9 @@ function Player:getName()
 end
 
 
---[[
-function Player:onAdded()
-    
+function Player:onRemoving()
+    --TODO:Cuando el player salga
 end
-
-function Player:onRemoved()
-    
-end
-]]
 
 function Player:addStructure(structure)
     table.insert(self.OWNEDSTRUCTURES,structure)
@@ -58,15 +62,28 @@ end
 
 
 function Player.new(player)
-    local self = {}
+    local self = Player.getPlayerByInstance(player)
+    if self then return self end
+
+    self = {}
 
     self.PLAYER = player
-    self.money = 1000
+    self.money = 0
     Player.newMoneyValue(self,player)
     self.OWNEDSTRUCTURES = {}
     self.MONEYVALUE.Value = self.money
 
     return setmetatable(self,Player)
 end
+
+Players.PlayerAdded:Connect(function(player)
+    Player.new(player)
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+    --TODO:hacerlo mas adelante
+    --Player.getPlayerByInstance(player):onRemoving()
+end
+)
 
 return Player

@@ -38,7 +38,7 @@ function Dropper.new(model,player)
 	local self = Interactable.new(model,player)
 	
 	self.SPAWN = model.generador
-	self.value = model:FindFirstChild("Valor") and model.valor.Value or Dropper.MODEL.valor.Value
+	self.value = model:FindFirstChild("valor") and model.valor.Value or Dropper.MODEL.valor.Value
 	self.cooldown =  model:FindFirstChild("enfriamiento") and model.enfriamiento.Value or Dropper.MODEL.enfriamiento.Value
 
 	self.DROPREQUEST = TimedRequests.new(self,"drop",self)

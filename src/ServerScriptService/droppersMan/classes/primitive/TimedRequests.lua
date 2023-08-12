@@ -8,7 +8,7 @@ TimedRequests.requests = {}
 function TimedRequests:update()
 	if tick() - self.tick > self.OBJECT.cooldown then
 		self.tick = tick()
-		self.OBJECT[self.FUNCTION](self.FUNCTIONARGS)
+		task.spawn(self.OBJECT[self.FUNCTION],(self.FUNCTIONARGS))
 	end
 end
 

@@ -11,7 +11,7 @@ end
 
 function AnimatedButton:dennyEffect()
 	self.GFX:play("OnDenny")
-    self:hide()
+    --self:hide()
 end
 
 function AnimatedButton.new(model,player)

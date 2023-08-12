@@ -47,6 +47,7 @@ function Button:onTouch()
 			--self:hide()
 		else
 			task.wait(1)
+			print("reactivated")
 			self:activate()
 		end
 end

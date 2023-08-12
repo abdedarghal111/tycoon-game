@@ -1,10 +1,10 @@
 local GFX = {}
 GFX.__index = GFX
 
-function GFX:play(GFXname)
+function GFX:play(GFXname,animationManager)
     local GFXfunc = self.GFX[GFXname]
     if GFXfunc then
-        GFXfunc()
+        GFXfunc(animationManager)
     end
 end
 

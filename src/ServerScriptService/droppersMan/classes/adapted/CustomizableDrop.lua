@@ -10,12 +10,22 @@ function CustomizableDrop:setState(state)
                 v.Transparency = 1
             end
         end
+    else
+        for i,v in pairs(self.DECORATION:GetChildren()) do
+            if v.Name == "fase "..state then continue end
+            for i,v in pairs(v:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.Transparency = 1
+                end
+            end
+        end
     end
     for i,v in pairs(self.DECORATION["fase "..state]:GetDescendants()) do
         if v:IsA("BasePart") then
             v.Transparency = 0
         end
     end
+    --print("from state "..tostring(self.state).." to "..state)
     self.state = state
 end
 

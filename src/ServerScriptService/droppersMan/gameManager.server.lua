@@ -7,8 +7,24 @@ local Player = hf:getClass("Player")
 
 local tycoon1Objects = {}
 for i,model in pairs(workspace.tycoons.tycoon1:GetDescendants()) do
-	if hf:isAValidObjectModel(model) then
-		table.insert(tycoon1Objects,hf:createObject(model))
+	local si,err = pcall(function() table.insert(tycoon1Objects,hf:createObject(model)) end)
+	if hf:isAValidObjectModel(model) then if not si then
+			local inst = Instance.new("Highlight")
+			inst.Parent = model
+			inst.Adornee = model
+
+
+			local a = model.Parent
+			local str = a.Name.."/"..model.Name
+			while not a == workspace do
+				local model = a
+				a = model.Parent
+				str = a.Name.."/"..model.Name
+			end
+
+
+			error("errror founded("..str.."):"..err)
+		end
 	end
 end
 local Tycoon = hf:getClass("Tycoon")

@@ -41,7 +41,7 @@ end
 function Decoration.new(model,player)
     local self = Interactable.new(model,player)
 
-    self.DECORATIONINFO = DecorationInfo.new(model)
+    self.DECORATIONINFO = DecorationInfo.new(model:FindFirstChild("Partes de decoracion"))
 
     return setmetatable(self,Decoration)
 end

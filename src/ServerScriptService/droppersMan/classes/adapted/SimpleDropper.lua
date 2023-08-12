@@ -5,7 +5,7 @@ local GFX = require(script.Parent.Parent.primitive.GFX)
 local SimpleDropper = {}
 SimpleDropper.__index = SimpleDropper
 
-function Dropper:drop()
+function SimpleDropper:drop()
 	local drop = Drop.new(self)
     self.GFX:play("onDrop")
 end

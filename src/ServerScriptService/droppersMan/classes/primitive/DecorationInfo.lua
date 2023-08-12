@@ -35,12 +35,12 @@ end
 
 
 
-function DecorationInfo.new(model)
+function DecorationInfo.new(decorationFolder)
     local self = {}
 
     self.partsInfo = {}
 
-    local decorationFolder = model:FindFirstChild("Partes de decoracion")
+    --local decorationFolder = model:FindFirstChild("Partes de decoracion")
     self.parts = decorationFolder:GetDescendants()
     
     for partIndex,part in pairs(self.parts) do

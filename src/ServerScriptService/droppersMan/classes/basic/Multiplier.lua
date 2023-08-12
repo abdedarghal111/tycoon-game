@@ -22,12 +22,12 @@ end
 function Multiplier:onTemporalObjectTouch(drop)
 	if not drop then return end
 	self:multiply(drop)
-	self:onDropDetected(drop) --para las clases futuras(hay varias clases así)
 end
 
 function Multiplier:multiply(drop)
 	if not drop:isMultipliedBy(self) then
 		drop:multiply(self,self.multiplier)
+		self:onDropDetected(drop) --para las clases futuras(hay varias clases así)
 	end
 end
 

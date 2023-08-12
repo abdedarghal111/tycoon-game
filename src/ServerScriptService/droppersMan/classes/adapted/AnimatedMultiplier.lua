@@ -4,9 +4,15 @@ local Animation = require(script.Parent.Parent.primitive.Animation)
 local AnimatedMultiplier = {}
 AnimatedMultiplier.__index = AnimatedMultiplier
 
+
 function AnimatedMultiplier:onDropDetected(drop)
-    drop:setState(self.STATETOCHANGE)
     self.ANIMATION:play("dropDetected")
+    drop:anchorIn(self.WHERETOANCHOR)
+    self.ANIMATION:play("dropAnchored")
+    drop:setState(self.STATETOCHANGE)
+    self.ANIMATION:play("dropStateChanged")
+    drop:unanchor()
+    self.ANIMATION:play("dropUnanchored")
 end
 
 
@@ -27,6 +33,7 @@ function AnimatedMultiplier.new(model,player)
 
     self.ANIMATION = Animation.new(self.MODEL.animacion)
     self.STATETOCHANGE = self.MODEL["fase a cambiar"].Value
+    self.WHERETOANCHOR = self.MODEL.posicionDrop.CFrame
 
     return setmetatable(self,AnimatedMultiplier)
 end

@@ -21,6 +21,16 @@ function Drop:multiply(multiplicator,multiply)
 	self.INFORMATIONALGUI:write("Value: "..self.value)
 end
 
+function Drop:anchorIn(cframe)
+	self.MODEL.CFrame = cframe
+	self.MODEL.Anchored = true
+end
+
+function Drop:unanchor()
+	self.MODEL.Anchored = false
+end
+
+
 function Drop.new(dropperObj)
 	local drop = dropperObj.MODEL:FindFirstChild("drop") and dropperObj.MODEL.drop:Clone() or Drop.MODEL:Clone()
 	drop.Anchored = false

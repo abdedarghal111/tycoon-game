@@ -30,5 +30,20 @@ function helpFunctions:isAButton(model)
     end
 end
 
+function helpFunctions:isAInteractable(model)
+    if model and model:FindFirstChild("type") then
+        return true
+    else
+        return false
+    end
+end
+
+function helpFunctions:createLinkButtonProduct(button,product)
+    local objectValue = Instance.new("ObjectValue")
+    objectValue.Name = product.Name.."-"..button.Name.."link"
+    objectValue.Parent = button.productosAComprar
+    objectValue.Value = product
+end
+
 
 return helpFunctions
